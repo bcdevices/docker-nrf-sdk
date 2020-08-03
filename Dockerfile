@@ -72,3 +72,10 @@ WORKDIR /usr/src/ncs
 RUN pip3 install -r zephyr/scripts/requirements.txt && \
 	pip3 install -r nrf/scripts/requirements.txt && \
 	pip3 install -r bootloader/mcuboot/scripts/requirements.txt
+
+RUN wget -q https://launchpad.net/ubuntu/+source/device-tree-compiler/1.4.7-1/+build/15279267/+files/device-tree-compiler_1.4.7-1_amd64.deb && \
+        apt install ./device-tree-compiler_1.4.7-1_amd64.deb && \
+        rm -f device-tree-compiler_1.4.7-1_amd64.deb
+
+ENV ZEPHYR_TOOLCHAIN_VARIANT="gnuarmemb"
+ENV GNUARMEMB_TOOLCHAIN_PATH="/opt/gcc-arm-none-eabi-8-2019-q3-update"
