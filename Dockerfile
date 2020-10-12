@@ -63,11 +63,11 @@ RUN pip3 install west
 
 RUN mkdir -p /usr/src/ncs
 WORKDIR /usr/src/ncs
-RUN west init -m https://github.com/nrfconnect/sdk-nrf --mr v1.3.1 && \
+RUN west init -m https://github.com/nrfconnect/sdk-nrf --mr v1.3.2 && \
 	west update && \
 	west zephyr-export
 WORKDIR /usr/src/ncs/nrf
-RUN git checkout v1.3.1 && west update
+RUN git checkout v1.3.2 && west update
 WORKDIR /usr/src/ncs
 RUN pip3 install -r zephyr/scripts/requirements.txt && \
 	pip3 install -r nrf/scripts/requirements.txt && \
