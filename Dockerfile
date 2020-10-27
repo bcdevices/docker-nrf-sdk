@@ -49,11 +49,11 @@ RUN wget -q https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/c
   && ./cmake-$CMAKE_VERSION-Linux-x86_64.sh --skip-license --prefix=/usr/local \
   && rm -f ./cmake-$CMAKE_VERSION-Linux-x86_64.sh
 
-ENV GNUARM_DIR 8-2019q3/RC1.1
-ENV GNUARM_VERSION 8-2019-q3-update
-RUN wget -q https://developer.arm.com/-/media/Files/downloads/gnu-rm/$GNUARM_DIR/gcc-arm-none-eabi-$GNUARM_VERSION-linux.tar.bz2 \
-  && tar -xjf gcc-arm-none-eabi-$GNUARM_VERSION-linux.tar.bz2 -C /opt \
-  && rm -f gcc-arm-none-eabi-$GNUARM_VERSION-update-linux.tar.bz2
+ENV GNUARM_DIR 9-2019q4
+ENV GNUARM_VERSION 9-2019-q4-major
+RUN wget -q https://developer.arm.com/-/media/Files/downloads/gnu-rm/$GNUARM_DIR/gcc-arm-none-eabi-$GNUARM_VERSION-x86_64-linux.tar.bz2 \
+  && tar -xjf gcc-arm-none-eabi-$GNUARM_VERSION-x86_64-linux.tar.bz2 -C /opt \
+  && rm -f gcc-arm-none-eabi-$GNUARM_VERSION-x86_64-linux.tar.bz2
 
 RUN pip3 install --upgrade \
 	pip==19.2.3 \
@@ -61,13 +61,14 @@ RUN pip3 install --upgrade \
 	wheel==0.33.4
 RUN pip3 install west
 
+ENV SDK_NRF_VERSION v1.4.0-rc2
 RUN mkdir -p /usr/src/ncs
 WORKDIR /usr/src/ncs
-RUN west init -m https://github.com/nrfconnect/sdk-nrf --mr v1.3.2 && \
+RUN west init -m https://github.com/nrfconnect/sdk-nrf --mr $SDK_NRF_VERSION && \
 	west update && \
 	west zephyr-export
 WORKDIR /usr/src/ncs/nrf
-RUN git checkout v1.3.2 && west update
+RUN git checkout $SDK_NRF_VERSION && west update
 WORKDIR /usr/src/ncs
 RUN pip3 install -r zephyr/scripts/requirements.txt && \
 	pip3 install -r nrf/scripts/requirements.txt && \
@@ -78,4 +79,4 @@ RUN wget -q https://launchpad.net/ubuntu/+source/device-tree-compiler/1.4.7-1/+b
         rm -f device-tree-compiler_1.4.7-1_amd64.deb
 
 ENV ZEPHYR_TOOLCHAIN_VARIANT="gnuarmemb"
-ENV GNUARMEMB_TOOLCHAIN_PATH="/opt/gcc-arm-none-eabi-8-2019-q3-update"
+ENV GNUARMEMB_TOOLCHAIN_PATH="gcc-arm-none-eabi-$GNUARM_VERSION"
