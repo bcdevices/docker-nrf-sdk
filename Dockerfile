@@ -79,4 +79,4 @@ RUN wget -q https://launchpad.net/ubuntu/+source/device-tree-compiler/1.4.7-1/+b
         rm -f device-tree-compiler_1.4.7-1_amd64.deb
 
 ENV ZEPHYR_TOOLCHAIN_VARIANT="gnuarmemb"
-ENV GNUARMEMB_TOOLCHAIN_PATH="gcc-arm-none-eabi-$GNUARM_VERSION"
+ENV GNUARMEMB_TOOLCHAIN_PATH="/opt/gcc-arm-none-eabi-$GNUARM_VERSION"
