@@ -61,7 +61,7 @@ RUN pip3 install --upgrade \
 	wheel==0.33.4
 RUN pip3 install west
 
-ENV SDK_NRF_VERSION v1.4.0-rc2
+ENV SDK_NRF_VERSION v1.4.0
 RUN mkdir -p /usr/src/ncs
 WORKDIR /usr/src/ncs
 RUN west init -m https://github.com/nrfconnect/sdk-nrf --mr $SDK_NRF_VERSION && \
