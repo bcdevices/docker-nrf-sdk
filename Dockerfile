@@ -43,7 +43,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		zip \
 	  && rm -rf /var/lib/apt/lists/*
 
-ENV CMAKE_VERSION 3.13.3
+ENV CMAKE_VERSION 3.17.3
 RUN wget -q https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION-Linux-x86_64.sh \
   && chmod +x cmake-$CMAKE_VERSION-Linux-x86_64.sh \
   && ./cmake-$CMAKE_VERSION-Linux-x86_64.sh --skip-license --prefix=/usr/local \
@@ -56,12 +56,12 @@ RUN wget -q https://developer.arm.com/-/media/Files/downloads/gnu-rm/$GNUARM_DIR
   && rm -f gcc-arm-none-eabi-$GNUARM_VERSION-x86_64-linux.tar.bz2
 
 RUN pip3 install --upgrade \
-	pip==19.2.3 \
+	pip==21.0.1 \
 	setuptools==41.0.1 \
 	wheel==0.33.4
 RUN pip3 install west
 
-ENV SDK_NRF_VERSION v1.4.0
+ENV SDK_NRF_VERSION v1.5.0
 RUN mkdir -p /usr/src/ncs
 WORKDIR /usr/src/ncs
 RUN west init -m https://github.com/nrfconnect/sdk-nrf --mr $SDK_NRF_VERSION && \
@@ -75,7 +75,7 @@ RUN pip3 install -r zephyr/scripts/requirements.txt && \
 	pip3 install -r bootloader/mcuboot/scripts/requirements.txt
 
 RUN wget -q https://launchpad.net/ubuntu/+source/device-tree-compiler/1.4.7-1/+build/15279267/+files/device-tree-compiler_1.4.7-1_amd64.deb && \
-        apt install ./device-tree-compiler_1.4.7-1_amd64.deb && \
+        apt-get install ./device-tree-compiler_1.4.7-1_amd64.deb && \
         rm -f device-tree-compiler_1.4.7-1_amd64.deb
 
 ENV ZEPHYR_TOOLCHAIN_VARIANT="gnuarmemb"
