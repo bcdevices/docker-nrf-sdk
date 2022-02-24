@@ -3,7 +3,7 @@ FROM buildpack-deps:focal-scm
 ARG CMAKE_VERSION=3.20.5
 ARG GNUARM_DIR=9-2019q4
 ARG GNUARM_VERSION=9-2019-q4-major
-ARG SDK_NRF_VERSION=v1.8.0
+ARG SDK_NRF_VERSION=v1.9.0
 ARG WGET_ARGS="-q --show-progress --progress=bar:force:noscroll --no-check-certificate"
 
 # Setup environment
