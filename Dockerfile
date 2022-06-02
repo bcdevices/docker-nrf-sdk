@@ -10,11 +10,6 @@ ARG HOSTTYPE=x86_64
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM=xterm
 
-# Add the Kitware APT repository
-#RUN wget ${WGET_ARGS} https://apt.kitware.com/kitware-archive.sh && \
-#	/bin/bash kitware-archive.sh && \
-#	rm -f kitware-archive.sh
-
 #Setup locale
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		locales \
