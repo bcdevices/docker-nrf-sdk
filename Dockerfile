@@ -2,7 +2,7 @@ FROM --platform=linux/amd64 buildpack-deps:focal-scm
 
 ARG CMAKE_VERSION=3.20.5
 ARG ZSDK_VERSION=0.14.1
-ARG SDK_NRF_VERSION=2.0.1
+ARG SDK_NRF_VERSION=2.0.2
 ARG WGET_ARGS="-q --show-progress --progress=bar:force:noscroll --no-check-certificate"
 ARG HOSTTYPE=x86_64
 
