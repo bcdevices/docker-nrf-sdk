@@ -1,8 +1,14 @@
-FROM --platform=linux/amd64 buildpack-deps:focal-scm
+#
+# Copyright (c) 2023 Blue Clover Devices
+#
+# SPDX-License-Identifier: MIT
+#
+
+FROM --platform=linux/amd64 buildpack-deps:jammy-scm
 
 ARG CMAKE_VERSION=3.20.5
-ARG ZSDK_VERSION=0.14.1
-ARG SDK_NRF_VERSION=2.0.2
+ARG ZSDK_VERSION=0.16.0
+ARG SDK_NRF_VERSION=2.4.1
 ARG WGET_ARGS="-q --show-progress --progress=bar:force:noscroll --no-check-certificate"
 ARG HOSTTYPE=x86_64
 
@@ -58,19 +64,16 @@ RUN wget ${WGET_ARGS} -q https://github.com/Kitware/CMake/releases/download/v${C
   && rm -f ./cmake-${CMAKE_VERSION}-Linux-x86_64.sh
 
 RUN mkdir /opt/toolchains && cd /opt/toolchains && \
-        wget ${WGET_ARGS} https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.gz && \
-        tar xf zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.gz && \
+        wget ${WGET_ARGS} https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.xz && \
+        tar xf zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.xz && \
         zephyr-sdk-${ZSDK_VERSION}/setup.sh -c -t arm-zephyr-eabi && \
-        rm zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.gz
+        rm zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.xz
 
 ENV ZEPHYR_TOOLCHAIN_VARIANT zephyr
 ENV ZEPHYR_SDK_INSTALL_DIR /opt/toolchains/zephyr-sdk-${ZSDK_VERSION}
 
-RUN pip3 install --upgrade \
-	pip==21.0.1 \
-	setuptools==41.0.1 \
-	wheel==0.33.4
-RUN pip3 install --upgrade west
+RUN python3 -m pip install -U pip \
+	&& pip3 install --upgrade west
 
 RUN mkdir -p /usr/src/ncs-${SDK_NRF_VERSION}
 WORKDIR /usr/src/ncs-${SDK_NRF_VERSION}
