@@ -72,11 +72,8 @@ RUN mkdir /opt/toolchains && cd /opt/toolchains && \
 ENV ZEPHYR_TOOLCHAIN_VARIANT zephyr
 ENV ZEPHYR_SDK_INSTALL_DIR /opt/toolchains/zephyr-sdk-${ZSDK_VERSION}
 
-RUN pip3 install --upgrade \
-	pip==21.0.1 \
-	setuptools==41.0.1 \
-	wheel==0.33.4
-RUN pip3 install --upgrade west
+RUN python3 -m pip install -U pip \
+	&& pip3 install --upgrade west
 
 RUN mkdir -p /usr/src/ncs-${SDK_NRF_VERSION}
 WORKDIR /usr/src/ncs-${SDK_NRF_VERSION}
