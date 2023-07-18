@@ -1,8 +1,14 @@
-FROM --platform=linux/amd64 buildpack-deps:focal-scm
+#
+# Copyright (c) 2023 Blue Clover Devices
+#
+# SPDX-License-Identifier: MIT
+#
+
+FROM --platform=linux/amd64 buildpack-deps:jammy-scm
 
 ARG CMAKE_VERSION=3.20.5
-ARG ZSDK_VERSION=0.14.1
-ARG SDK_NRF_VERSION=2.0.2
+ARG ZSDK_VERSION=0.16.0
+ARG SDK_NRF_VERSION=2.4.1
 ARG WGET_ARGS="-q --show-progress --progress=bar:force:noscroll --no-check-certificate"
 ARG HOSTTYPE=x86_64
 
