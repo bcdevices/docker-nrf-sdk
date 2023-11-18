@@ -7,8 +7,8 @@
 FROM --platform=linux/amd64 buildpack-deps:jammy-scm
 
 ARG CMAKE_VERSION=3.20.5
-ARG ZSDK_VERSION=0.16.0
-ARG SDK_NRF_VERSION=2.4.2
+ARG ZSDK_VERSION=0.16.3
+ARG SDK_NRF_VERSION=2.5.0
 ARG WGET_ARGS="-q --show-progress --progress=bar:force:noscroll --no-check-certificate"
 ARG HOSTTYPE=x86_64
 
